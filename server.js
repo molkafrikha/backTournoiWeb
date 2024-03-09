@@ -51,6 +51,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+//Team and tournament
+const tournament_api = require('./app/APIs/tournament_api')
+const team_api = require('./app/APIs/team_api')
+
+app.use(tournament_api)
+app.use(team_api)
+
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
