@@ -22,5 +22,12 @@ pipeline {
                 }
             }
         }
+        stage('Building images (node and mongo)') {
+            steps {
+                script {
+                    sh('docker-compose build')
+                }
+            }
+        }
     }
 }
