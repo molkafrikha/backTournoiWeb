@@ -48,15 +48,9 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to tournement application." });
 });
 
-//Team and tournament
-const tournament_api = require('./app/APIs/tournament_api')
-const team_api = require('./app/APIs/team_api')
-
-app.use(tournament_api)
-app.use(team_api)
 
 // routes
 require("./app/routes/auth.routes")(app);
