@@ -15,6 +15,17 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube Analysis') {
+            steps{
+                script {  
+                    def scannerHome = tool 'SonarQubeServer'
+                    withSonarQubeEnv {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                        }
+                } 
+            }  
+        }
+
         stage('Build application') {
             steps {
                 script {
