@@ -4,8 +4,12 @@
   "description": "Node.js + MongoDB: JWT Authentication & Authorization",
   "main": "server.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha -r esm --timeout 20000 --exit"
+    "test": "cross-env NODE_ENV=test mocha -r esm --timeout 20000 --exit",
+    "build-dev": "webpack --config webpack.dev.js --mode development"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molkafrikha/backTournoiWeb.git"},
   "keywords": [
     "node.js",
     "express",
@@ -21,6 +25,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chai": "^5.1.0",
     "chai-http": "^4.4.0",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
@@ -43,4 +48,4 @@
     "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
   }
-}
+  }
