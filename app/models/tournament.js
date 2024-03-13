@@ -10,5 +10,12 @@ const schema = new mongoose.Schema({
     end_date: String
 })
 
+/*schema.pre('save', (req, res, next) => {
+    if(this.password.toString().length > 0){
+        this.is_private = true
+    }
+    next()
+})*/
+
 const model = mongoose.model("tournament", schema);
 module.exports = model;

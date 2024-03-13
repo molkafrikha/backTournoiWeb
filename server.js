@@ -8,12 +8,12 @@ const app = express();
 
 app.use(cors());
 /* for Angular Client (withCredentials) */
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: ["http://localhost:8081"],
-//   })
-// );
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+  })
+);
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -38,7 +38,7 @@ db.mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    console.log("Successfully connect to MongoDB.");
+    console.log("Successfully connected to MongoDB.");
     initial();
   })
   .catch(err => {
@@ -55,15 +55,15 @@ app.get("/", (req, res) => {
 const tournament_api = require('./app/APIs/tournament_api')
 const team_api = require('./app/APIs/team_api')
 
-app.use(tournament_api)
-app.use(team_api)
+app.use('/api/tournament', tournament_api)
+app.use('/api/team', team_api)
 
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
