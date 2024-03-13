@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input {
+  @apply p-2 mb-2 bg-neutral-900 shadow-sm w-full focus:ring-orange-600 focus:ring-2 placeholder:text-gray-200 transition duration-500 outline-none;
+}
+.form {
+  @apply font-normal flex flex-col justify-center p-3 shadow-xl text-white items-center bg-neutral-900 h-screen;
+}
+.button {
+  @apply bg-orange-600 shadow-2xl py-2 px-3 drop-shadow-lg hover:bg-orange-700 transition-colors font-semibold;
+}
