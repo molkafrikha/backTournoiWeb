@@ -17,6 +17,13 @@ const initialState = {
   },
 };
 
+const reducer = combineReducers({
+  userRegister: userRegisterReducer,
+  userLogin: userLoginReducer,
+  passResetLink: passResetLinkReducer,
+  passReset: passResetReducer,
+});
+
 const middleware = [thunk];
 
 const store = createStore(
