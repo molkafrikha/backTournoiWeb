@@ -1,33 +1,24 @@
-const path =require ('path');
+const path = require('path');
 
-
-module.exports={
-
+module.exports = {
     entry: {
-        main:'./server.js'
+        main: './server.js'
     },
-
-    output:{
-
-        path : path.join(__dirname,'dev_build'),
-
-        publicPath:'/',
+    output: {
+        path: path.join(__dirname, 'dev_build'),
+        publicPath: '/',
         filename: '[name].js',
-        clean:true
+        clean: true
     },
-
-    mode:'development',
-    target:'node',
-
+    mode: 'development',
+    target: 'node',
     module: {
-
         rules: [
             {
-                test:/\.js$/,
-                exclude:/node_modules/,
-                loader:"babel-loader"
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
             }
         ]
     }
-
-}
+};
