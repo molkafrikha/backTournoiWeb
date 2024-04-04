@@ -1,101 +1,45 @@
-const express = require("express");
-const cors = require("cors");
-const cookieSession = require("cookie-session");
-const dbConfig = require("./app/config/db.config");
+import express from 'express';
+import cors from 'cors';
+import { errorHandler, notFound } from './app/middleware/errorMiddleware.js';
+import connectDB from './app/config/dbConnect.js';
+import userRoutes from './app/routes/userRoutes.js';
+import dotenv from 'dotenv';
+import morgan from 'morgan';
+
+
+// Générer une clé secrète aléatoire de 256 bits
+
+dotenv.config();
+connectDB();
 
 const app = express();
-app.use(cors());
-/* for Angular Client (withCredentials) */
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: ["http://localhost:8081"],
-//   })
-// );
 
-// parse requests of content-type - application/json
+//middleware
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 app.use(express.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-app.use(
-  cookieSession({
-    name: "bezkoder-session",
-    keys: ["COOKIE_SECRET"], // should use as secret environment variable
-    httpOnly: true
-  })
-);
-
-const db = require("./app/models");
-const Role = db.role;
-
-
-db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log("Successfully connect to MongoDB.");
-    initial();
-  })
-  .catch(err => {
-    console.error("Connection error", err);
-    process.exit();
-  });
-
-
-
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8089;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to tournement application." });
+app.get('/', (req, res) => {
+  res.send('Server is running....');
 });
 
-
-// routes
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
-
-
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      new Role({
-        name: "user"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'user' to roles collection");
-      });
-
-      new Role({
-        name: "organizer"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'organizer' to roles collection");
-      });
-
-      new Role({
-        name: "admin"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-      });
-    }
-  });
+//morgan
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
 }
+
+//routes
+app.use('/api/users', userRoutes);
+
+
+//error middleware
+app.use(notFound);
+app.use(errorHandler);
+
+//listening
+const PORT = process.env.PORT || 8089;
+
+app.listen(PORT, () => {
+  console.log(`----- Server running on port ${PORT} --------`);
+});
