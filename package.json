@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index"
+    "start": "nodemon index",
+    "build-dev": "webpack --config webpack.dev.cjs --mode development"
   },
   "author": "Saiful Islam Shihab",
   "license": "ISC",
@@ -23,5 +24,12 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.4.15",
     "nodemon": "^2.0.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/preset-env": "^7.24.4",
+    "babel-loader": "^9.1.3",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   }
 }
