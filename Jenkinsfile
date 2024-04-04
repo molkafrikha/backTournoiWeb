@@ -67,14 +67,6 @@ pipeline {
         }
       }
     }
-     stage("Run Grafana"){ 
-      steps{
-
-        script{
-        sh('docker start grafana')
-        }
-      }
-    }
   } 
 
 }
