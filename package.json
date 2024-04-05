@@ -2,11 +2,11 @@
   "name": "email-sending",
   "version": "1.0.0",
   "description": "Email send using Nodemailer",
-  "main": "server.js",
-  "type": "module",
+  "main": "server.cjs",
+  
   "scripts": {
     "start": "nodemon index",
-    "build-dev": "webpack --config webpack.dev.cjs --mode development"
+    "build:dev": "webpack --mode development"
   },
   "author": "Saiful Islam Shihab",
   "license": "ISC",
