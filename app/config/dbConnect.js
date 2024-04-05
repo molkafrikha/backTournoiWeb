@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
@@ -16,8 +16,8 @@ const connectDB = async () => {
     console.error(`MongoDB Error: ${error.message}`);
     process.exit(1);
   }
-      // Assurez-vous d'ajouter cette ligne après la connexion à MongoDB
-mongoose.set('useFindAndModify', false);
+  // Assurez-vous d'ajouter cette ligne après la connexion à MongoDB
+  mongoose.set('useFindAndModify', false);
 };
 
-export default connectDB;
+module.exports = connectDB;
