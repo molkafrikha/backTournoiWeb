@@ -6,7 +6,7 @@
     "price": 30,
     "nbTickets": 10,
     "nbParticipants": 10,
-    "like": false
+    "like": true
   },
   {
     "name": "Festival de la médina de Tunis",
