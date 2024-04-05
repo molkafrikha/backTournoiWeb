@@ -1,11 +1,10 @@
-import express from 'express';
-import cors from 'cors';
-import { errorHandler, notFound } from './app/middleware/errorMiddleware.js';
-import connectDB from './app/config/dbConnect.js';
-import userRoutes from './app/routes/userRoutes.js';
-import dotenv from 'dotenv';
-import morgan from 'morgan';
-
+const express = require('express');
+const cors = require('cors');
+const { errorHandler, notFound } = require('./app/middleware/errorMiddleware.js');
+const connectDB = require('./app/config/dbConnect.js');
+const userRoutes = require('./app/routes/userRoutes.js');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
 
 // Générer une clé secrète aléatoire de 256 bits
 
