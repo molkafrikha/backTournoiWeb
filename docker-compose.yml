@@ -17,7 +17,7 @@ services:
     build: .
     image: 172.20.10.5:8083/nodemongoapplinkup:6.0
     restart: always
-    container_name: back
+    container_name: backend
     ports:
       - '5000:5000'
     depends_on:
