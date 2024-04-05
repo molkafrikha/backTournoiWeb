@@ -6,7 +6,7 @@
   
   "scripts": {
     "start": "nodemon index",
-    "build:dev": "webpack --mode development"
+    "build-dev": "webpack --mode development"
   },
   "author": "Saiful Islam Shihab",
   "license": "ISC",
