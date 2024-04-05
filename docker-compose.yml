@@ -15,7 +15,7 @@ services:
 
   app:
     build: .
-    image: 172.20.10.5:8083/nodemongoapp:6.0
+    image: 172.20.10.5:8083/nodemongoapplinkup:6.0
     restart: always
     container_name: backend
     ports:
