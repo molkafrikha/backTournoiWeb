@@ -66,8 +66,9 @@ const NewTournament = () => {
                 </div>
                 <div className="flex justify-around items-center w-full">
                     <input
-                        className="input mr-2" autoComplete="off" type="text" placeholder="Max teams"
+                        className="input mr-2" autoComplete="off" type="number" placeholder="Max teams"
                         {...register("numberOfTeams")} disabled={isSubmitting}
+                        min={16}
                         onChange={(e) => setMax(Number(e.target.value.toString()))}
                     />
                     {errors.numberOfTeams && (<p className="text-red-600">{errors.numberOfTeams.message}</p>)}
