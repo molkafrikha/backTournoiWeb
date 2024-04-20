@@ -14,7 +14,7 @@ module.exports = class Controller_crud {
             update: async (req, res) => {
                 try {
                     const { id } = req.params
-                    const instance = await service.update(id, req.body)
+                    const instance = await service.update_id(id, req.body)
                     res.status(200).send({ instance })
                 } catch (err) {
                     console.log(err)
@@ -43,6 +43,7 @@ module.exports = class Controller_crud {
             get_all_put: async (req, res) => {
                 try {
                     const { params, populate } = req.body
+                    console.log('ssss')
                     const docs = await service.get_all_put(params, populate)
                     res.status(200).send({ ...docs})
                 } catch(err){
@@ -54,7 +55,7 @@ module.exports = class Controller_crud {
                 try {
                     const { id } = req.params
                     const params = { ...req.query }
-                    const instance = await service.get_one(id, params)
+                    const instance = await service.find_id(id, params)
                     res.status(200).send({ instance })
                 } catch (err) {
                     console.log(err)

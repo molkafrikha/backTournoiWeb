@@ -11,7 +11,7 @@ module.exports = class Crud {
                 }, {})
                 return await model.create({ ...fields })
             },
-            update: async (id, inputs) => {
+            update: async (search, inputs) => {
                 const fields = Object.keys(inputs).reduce((acc, i) => {
                     if (paths.includes(i)) {
                         acc[i] = inputs[i]
@@ -19,7 +19,17 @@ module.exports = class Crud {
                     return acc
                 }, {})
                 console.log(fields)
-                return await model.findByIdAndUpdate(id, { ...fields })
+                return await model.findOneAndUpdate(search, fields)
+            },
+            update_id: async (id, inputs) => {
+                const fields = Object.keys(inputs).reduce((acc, i) => {
+                    if (paths.includes(i)) {
+                        acc[i] = inputs[i]
+                    }
+                    return acc
+                }, {})
+                console.log(fields)
+                return await model.findByIdAndUpdate(id, fields)
             },
             delete: async (id) => {
                 return await model.findByIdAndDelete(id)
@@ -31,9 +41,9 @@ module.exports = class Crud {
                     }
                     return acc
                 }, {}) : {}
-                const populate_arr = (params && Object.prototype.hasOwnProperty.call(params, 'populate')) 
+                const populate_arr = (params && Object.prototype.hasOwnProperty.call(params, 'populate'))
                     ? params.populate.split("|") : []
-                console.log(populate_arr)
+                console.log(params)
                 return await model.find(selected_params).then(async (docs) => {
                     let res = {}
                     for (const field of populate_arr) {
@@ -47,9 +57,26 @@ module.exports = class Crud {
                     return (res[0] != null) ? res : docs
                 })
             },
-            get_one: async (id, params) => {
-                const populate_arr =  (params && Object.prototype.hasOwnProperty.call(params, 'populate')) 
-                ? params.populate.split("|") : []
+            get_all_put: async (params, populate) => {
+                const selected_params = params ? Object.keys(params).reduce((acc, key) => {
+                    if (paths.includes(key)) {
+                        acc[key] = params[key]
+                    }
+                    return acc
+                }, {}) : {}
+                const docs = await model.find(selected_params)
+                if(populate){
+                    const populate_arr = Object.values(populate)
+                    const populatedDocs = await Promise.all(populate_arr.map(field => {
+                        return model.populate(docs, { path: field });
+                    }))
+                    return populatedDocs.flat()
+                }
+                return docs
+            },
+            find_id: async (id, params) => {
+                const populate_arr = (params && Object.prototype.hasOwnProperty.call(params, 'populate'))
+                    ? params.populate.split("|") : []
                 return await model.findById(id).then(async (doc) => {
                     let res = null
                     for (const field of populate_arr) {
@@ -66,6 +93,7 @@ module.exports = class Crud {
                     }
                     return acc
                 }, {}) : {}
+                console.log(selected_params)
                 return await model.findOne(selected_params)
             },
             insert_many: async (arr) => {

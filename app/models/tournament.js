@@ -7,7 +7,11 @@ const schema = new mongoose.Schema({
     max_teams: Number,
     playing_field: String,
     start_date: String,
-    end_date: String
+    end_date: String,
+    winner : {
+        type : mongoose.Types.ObjectId,
+        ref : 'team'
+    }
 })
 
 /*schema.pre('save', (req, res, next) => {

@@ -54,9 +54,16 @@ app.get("/", (req, res) => {
 //Team and tournament
 const tournament_api = require('./app/APIs/tournament_api')
 const team_api = require('./app/APIs/team_api')
+const participant_api = require('./app/APIs/participant_api')
+const match_api = require('./app/APIs/match_api')
 
 app.use('/api/tournament', tournament_api)
 app.use('/api/team', team_api)
+app.use('/api/participant', participant_api)
+app.use('/api/match', match_api)
+
+const path = require('path')
+app.use("/uploads", express.static(path.join(__dirname, 'uploads')))
 
 // routes
 require("./app/routes/auth.routes")(app);
